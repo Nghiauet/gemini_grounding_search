@@ -1,0 +1,12 @@
+*.log
+*.json
+*.txt
+*.pdf
+*.docx
+*.doc
+*.xls
+*.xlsx
+*.pptx
+*.ppt
+.env
+*.pyc
