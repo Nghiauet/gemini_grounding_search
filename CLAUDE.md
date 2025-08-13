@@ -100,3 +100,33 @@ Key configuration sections:
 4. Validates response against Pydantic models
 5. Formats output with sources → CSV output
 6. Logs all operations with configurable detail level
+
+## URL Evaluation Tool
+
+The `evaluation.py` script validates the quality and accuracy of extracted information:
+
+### Evaluation Commands
+```bash
+# Evaluate all URLs in output file
+python evaluation.py sheet_2_specs_output.csv
+
+# Test mode - evaluate only first row
+python evaluation.py sheet_2_specs_output.csv --test
+
+# Custom output file and debug logging
+python evaluation.py sheet_2_specs_output.csv -o custom_results.csv --log-level DEBUG
+```
+
+### Evaluation Process
+1. **URL Accessibility**: Checks if each source URL is reachable (HTTP status codes)
+2. **Content Fetching**: Downloads webpage content (limited to 50KB)
+3. **LLM Validation**: Uses Gemini to validate if content matches expected product information
+4. **Structured Output**: Generates CSV with accessibility, correctness scores, and validation notes
+
+### Output Format
+- Row number, manufacturer, part number, source number
+- URL accessibility status and HTTP status code
+- Content validation results with confidence scores
+- Detailed validation notes from LLM analysis
+
+**Note**: Some websites may block automated requests (403 errors). Consider adding delays between requests or using proxy services for large-scale validation.

@@ -1,0 +1,4 @@
+Row,Manufacturer,Part Number,Source Number,URL,Accessible,Status Code,Has Correct Info,Confidence Score,Validation Notes
+1,TECH DATA,7308653,1,https://www.dell.com/support/home/en-us/product-support/product/u2723qe-monitor/docs,False,403,,,URL not accessible
+1,TECH DATA,7308653,2,https://www.dell.com/en-us/shop/dell-ultrasharp-27-4k-usb-c-hub-monitor-u2723qe/apd/210-bdpf/monitors-monitor-accessories,False,403,,,URL not accessible
+1,TECH DATA,7308653,3,https://www.bhphotovideo.com/c/product/1691605-REG/dell_u2723qe_27_ultrasharp_4k_uhd.html/specs,False,403,,,URL not accessible
