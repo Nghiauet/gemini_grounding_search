@@ -4,7 +4,19 @@
 This is a Python-based product specification and battery information extraction system that uses Google's Gemini AI with grounded search capabilities. The system processes CSV files containing product information (manufacturer, part number, description) and extracts detailed specifications using structured AI-powered web searches.
 
 ## Environment & Dependencies
+  Usage Examples:
 
+  # Extract product specifications
+  python main.py specs -i data/sheet_2.csv
+
+  # Extract battery information with test mode
+  python main.py battery -i data/sheet_3.csv --test
+
+  # Extract both types of information
+  python main.py both -i data/products.csv
+
+  # Use custom config and logging
+  python main.py specs -i data/sheet_2.csv --config config.json --log-level DEBUG
 - **Python Version**: >=3.11 (specified in pyproject.toml)
 - **Package Manager**: Uses `uv` (uv.lock present)
 - **Key Dependencies**: 

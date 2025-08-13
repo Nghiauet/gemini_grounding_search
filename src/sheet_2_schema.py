@@ -1,7 +1,16 @@
-import csv
-from gemini_grounding_search import GeminiSearch, ProductSpecification, convert_specs_to_imperial
+#!/usr/bin/env python3
+"""
+Legacy script for Sheet 2 processing - DEPRECATED
+Use main.py with 'specs' extraction type instead.
 
-class ProductSpecsExtractor:
+Example: python main.py specs -i data/sheet_2.csv
+"""
+
+import sys
+from .product_specs_extractor import ProductSpecsExtractor
+from .gemini_grounding_search import GeminiSearch
+
+class LegacyProductSpecsExtractor:
     def __init__(self, search_client=None):
         self.search_client = search_client or GeminiSearch()
     
@@ -189,11 +198,15 @@ class ProductSpecsExtractor:
         print(f"Processing complete. Output saved to {output_file}")
 
 if __name__ == "__main__":
-    # Initialize the search client and extractor
+    print("⚠️  This script is DEPRECATED")
+    print("Use the new main.py instead:")
+    print("python main.py specs -i data/sheet_2.csv")
+    print()
+    
+    # For backward compatibility, still run the extraction
     searcher = GeminiSearch()
     extractor = ProductSpecsExtractor(searcher)
     
-    # Process the entire CSV file
     input_file = "data/sheet_2.csv"
     output_file = "sheet_2_output.csv"
     
@@ -201,10 +214,10 @@ if __name__ == "__main__":
     print("=" * 70)
     
     try:
-        # Set test=True to only process the first row for testing
         extractor.process_csv_file(input_file, output_file, test=False)
         print(f"\nAll products processed successfully!")
         print(f"Results saved to: {output_file}")
         
     except Exception as e:
         print(f"Error processing CSV file: {e}")
+        sys.exit(1)

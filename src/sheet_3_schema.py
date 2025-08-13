@@ -1,11 +1,18 @@
-import csv
-from gemini_grounding_search import GeminiSearch
-from pydantic import BaseModel, Field, field_validator
-from typing import List
-import re
-import logging
+#!/usr/bin/env python3
+"""
+Legacy script for Sheet 3 processing - DEPRECATED
+Use main.py with 'battery' extraction type instead.
 
-# Set up logging
+Example: python main.py battery -i data/sheet_3.csv
+"""
+
+import sys
+from .battery_info_extractor import BatteryInfoExtractor
+from .gemini_grounding_search import GeminiSearch
+from .utils import setup_logging
+
+# Set up legacy logging (deprecated - use new utils.setup_logging)
+import logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
@@ -15,7 +22,7 @@ logging.basicConfig(
     ]
 )
 
-class BatteryInformation(BaseModel):
+class LegacyBatteryInformation:
     contains_battery: bool = Field(..., description="Whether the product contains a battery")
     battery_count: int = Field(..., ge=0, description="Number of batteries per unit (0 if no battery)")
     battery_weight_kg: float = Field(..., ge=0, description="Weight of single battery in kilograms (0 if no battery)")
@@ -298,12 +305,16 @@ class BatteryInfoExtractor:
         print(f"Processing complete. Output saved to {output_file}")
 
 if __name__ == "__main__":
-    # Initialize the search client and extractor
+    print("⚠️  This script is DEPRECATED")
+    print("Use the new main.py instead:")
+    print("python main.py battery -i data/sheet_3.csv")
+    print()
+    
+    # For backward compatibility, still run the extraction
     logging.info("Initializing GeminiSearch and BatteryInfoExtractor")
     searcher = GeminiSearch()
     extractor = BatteryInfoExtractor(searcher)
     
-    # Process the entire CSV file
     input_file = "data/sheet_3.csv"
     output_file = "sheet_3_output.csv"
     
@@ -312,7 +323,6 @@ if __name__ == "__main__":
     print("=" * 70)
     
     try:
-        # Set test=True to only process the first row for testing
         extractor.process_csv_file(input_file, output_file, test=False)
         logging.info(f"All products processed successfully! Results saved to: {output_file}")
         print(f"\nAll products processed successfully!")
@@ -321,3 +331,4 @@ if __name__ == "__main__":
     except Exception as e:
         logging.error(f"Error processing CSV file: {e}")
         print(f"Error processing CSV file: {e}")
+        sys.exit(1)
